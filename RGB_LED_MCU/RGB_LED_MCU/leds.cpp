@@ -1,37 +1,13 @@
-void wait(uint16_t waitUs){
-	while (waitUs > 0)
-	{
-		_delay_us(1);
-		waitUs--;
-	}
-}
-
-
-void ledSoftPWM(uint16_t redOnTime,uint16_t greenOnTime, uint16_t blueOnTime, uint16_t whiteOnTime){
+void rgbwWrite(bool red, bool green, bool blue, bool white){
+	//PORTA - PORTA7 PORTA6 PORTA5 PORTA4 PORTA3 PORTA2 PORTA1 PORTA0
+	uint8_t writeMask = PORTA &  ~(PORTA_OUTPUT_MASK); // copy PORTA masking out the LEDs
 	
-	if(redOnTime > 0){ //check of on time is == 0 to skip colors not in sequence 
-		rgbwWrite(1,0,0,0);
-		wait(redOnTime);
-		rgbwClear();
-	}
+	writeMask |= red<<PORTA0;      //write red value into output register
+	writeMask |= blue<<PORTA1;     //write blue value into output register
+	writeMask |= green <<PORTA2;   //write green value into output register
+	writeMask |= white<<PORTA3;    //write white value into output register
 	
-	if(greenOnTime > 0){ //check of on time is == 0 to skip colors not in sequence
-		rgbwWrite(0,1,0,0);
-		wait(greenOnTime);
-		rgbwClear();
-	}
-	
-	if(blueOnTime > 0){ //check of on time is == 0 to skip colors not in sequence
-		rgbwWrite(0,0,1,0);
-		wait(blueOnTime);
-		rgbwClear();
-	}
-	
-	if(whiteOnTime > 0){ //check of on time is == 0 to skip colors not in sequence
-		rgbwWrite(0,0,0,1);
-		wait(whiteOnTime);
-		rgbwClear();
-	}	
+	PORTA = writeMask; //update PORTA
 }
 
 void cycleLeft(){
@@ -42,8 +18,3 @@ void cycleLeft(){
 void cycleRight(){
 	
 }
-
-void updateTickSpeed(uint8_t analogValue){
-
-}
-

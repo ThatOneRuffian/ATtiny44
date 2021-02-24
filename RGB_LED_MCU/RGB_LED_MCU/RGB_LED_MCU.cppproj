@@ -55,7 +55,7 @@
       </ToolNumber>
       <ToolName>Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
-    <StimuliFile>\\nas\Programming\3D Printing\RGB LED\RGB_LED_MCU\RGB_LED_MCU\stimuli.sti</StimuliFile>
+    <StimuliFile>C:\Users\Marcus\Documents\Git\ATtiny44\stim_file.stim</StimuliFile>
     <avrtoolinterface />
     <custom>
       <ToolOptions xmlns="">
