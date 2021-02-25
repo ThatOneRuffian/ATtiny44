@@ -11,7 +11,6 @@ void rgbwWrite(bool red, bool green, bool blue, bool white){
 }
 
 void cycleLeft(){
-	
 	//update pointer to matrix?
 }
 

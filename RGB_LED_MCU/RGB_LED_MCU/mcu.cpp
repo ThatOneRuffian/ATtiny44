@@ -5,7 +5,7 @@
 
 #define PORTB_MASK 0x03         //left RESET (PB3) register unchanged. All other pins in this group are set to output with pull-up resistors set
 
-uint16_t volatile maxOffTime = 0x1FFF;			
+uint16_t volatile maxOffTime = 0x0FFF;			
 uint16_t volatile maxOnTime = 0x00;			
 uint16_t const pwmPeriod = 0x0FFF; //max on+off time for PWM  total frequency ~239Hz
 
@@ -60,12 +60,17 @@ void initMcu(){
 	clearTimer1();
 }
 
-void wait(uint16_t waitUs){
+void delay_us(uint16_t waitUs){  // wrapper to accept integers
 	while (waitUs > 0)
 	{
 		_delay_us(1);
 		waitUs--;
 	}
+}
+
+void delay_ms(uint16_t waitMs){
+	const uint8_t milliToMicro = 10;
+	delay_us(waitMs*milliToMicro);
 }
 
 void setDutyCycle(double onPercentage){
@@ -95,3 +100,11 @@ uint8_t getDigitalInputs(){
 	return PINA & PORTA_DIGITAL_SW_MASK; //mask only the digital input pins to read them specifically. will not need once interrupts are finished
 }
 
+bool getDigitalInputs2(uint8_t pinA_index_to_check){
+	if(bit_is_set(PINA, pinA_index_to_check)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}

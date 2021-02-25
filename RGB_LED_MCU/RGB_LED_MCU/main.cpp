@@ -37,13 +37,13 @@ int main(void){
 
 	while(true) {
 		setDutyCycle(convertAnalogToPercentage(getKnobAnalogValue()));
+
 		// read switches 
 		// set display mode
 		// r,g,b,w - single
 		// custom colors
 		// math'ed color sweeps
 		// low power sleep mode?
+
 	}
 }
-
-

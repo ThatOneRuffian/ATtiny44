@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name tag-connect)(type Legacy)(uri "P:/Circuits/[Custom Libraries]/tag-connect.pretty/tag-connect.lib")(options "")(descr ""))
+  (lib (name RGB_Lamp-rescue)(type Legacy)(uri ${KIPRJMOD}/RGB_Lamp-rescue.lib)(options "")(descr ""))
 )
