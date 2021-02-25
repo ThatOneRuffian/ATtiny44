@@ -1,5 +1,8 @@
+Debug/
+Release/
 *.o
 *.d
+*.stim
 *.atsuo
 *.srec
 *.map
