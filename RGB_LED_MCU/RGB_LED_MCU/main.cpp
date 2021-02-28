@@ -18,25 +18,30 @@ ISR(TIM1_COMPA_vect){ //timer1A interrupt handler
 	static bool toggler = true; //default off
 
 	if(toggler){
-		
-		rgbwWrite(0,0,0,0); // turn LEDs off	
+		//rgbwWrite(0,0,0,0); // turn LEDs off	
 		OCR1A = maxOnTime; //set on time
 		toggler = false;
 	}
 	
-	else{
-		rgbwWrite(1,1,1,1); // turn LEDs on
+	else{	
 		OCR1A = maxOffTime; //set off time
 		toggler = true;
 	}
+	
 }
 
 int main(void){
 	
 	initMcu(); 
-
+	
 	while(true) {
-		setDutyCycle(convertAnalogToPercentage(getKnobAnalogValue()));
+		setDutyCycle(getKnobAnalogValue());
+		for (uint8_t i = 0; i<100; i++ ){
+
+			populateColorPallet(i,i,i,i);
+			writeNextPalletIndex();
+			delay_ms(1);
+		}
 
 		// read switches 
 		// set display mode

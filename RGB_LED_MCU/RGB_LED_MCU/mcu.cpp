@@ -3,8 +3,9 @@
 #define PORTA_DIGITAL_SW_MASK 0x30     //digital switches are logic 1
 #define PORTA_DIMMER_ANALOG_PIN 0x07   //write to MUX to configure pin 7 for ADC inputs
 
-#define PORTB_MASK 0x03         //left RESET (PB3) register unchanged. All other pins in this group are set to output with pull-up resistors set
+#define PORTB_MASK 0x0F         //All pins in this group are set to output with pull-up resistors set
 
+// PWM config
 uint16_t volatile maxOffTime = 0x0FFF;			
 uint16_t volatile maxOnTime = 0x00;			
 uint16_t const pwmPeriod = 0x0FFF; //max on+off time for PWM  total frequency ~239Hz
@@ -93,14 +94,10 @@ uint16_t getKnobAnalogValue(){ //knob that controls the LED PWM input interpolat
 	ADCSRA |= 1<<ADSC; //start ADC conversion
 	loop_until_bit_is_clear(ADCSRA, ADSC); //ADSC register position will return 0 if there is no conversion in progress
 	
-	return ADC;//return high byte of left shifted ADC read
+	return  convertAnalogToPercentage(ADC);//return high byte of left shifted ADC read converted into on percentage
 }
 
-uint8_t getDigitalInputs(){
-	return PINA & PORTA_DIGITAL_SW_MASK; //mask only the digital input pins to read them specifically. will not need once interrupts are finished
-}
-
-bool getDigitalInputs2(uint8_t pinA_index_to_check){
+bool getDigitalInputA(uint8_t pinA_index_to_check){
 	if(bit_is_set(PINA, pinA_index_to_check)){
 		return true;
 	}
